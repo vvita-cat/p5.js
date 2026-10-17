@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Halloween Animation Sketch</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+
+  <script>
+   
+
+    let castle;
+
+    
+    let batX = 0;
+    let batSpeed = 2;
+
+    function preload() {
+     
+      castle = loadImage('assets/haunted_castle.png', 
+        () => console.log('Image loaded!'),
+        () => { castle = null; }
+      );
+    }
+
+    function setup() {
+      createCanvas(600, 400);
+      noStroke();
+    }
+
+    function draw() {
+  
+      let bgR = map(sin(frameCount * 0.01), -1, 1, 20, 55);
+      let bgG = map(sin(frameCount * 0.01), -1, 1, 10, 25);
+      let bgB = map(sin(frameCount * 0.01), -1, 1, 40, 80);
+      background(bgR, bgG, bgB);
+
+     
+      fill(255, 240, 180, 50);
+      circle(480, 75, 80);
+      fill(255, 245, 200);
+      circle(480, 75, 60);
+
+ 
+      fill(25, 20, 35);
+      ellipse(300, 380, 650, 200);
+
+      if (castle) {
+        image(castle, 260, 190, 140, 100);
+      } else {
+      
+        fill(15, 10, 22);
+        rect(300, 230, 60, 50);
+        triangle(300, 230, 330, 195, 360, 230);
+        fill(255, 220, 50);
+        rect(323, 240, 14, 18, 4);
+      }
+
+     
+      fill(15, 10, 20);
+      ellipse(300, 420, 750, 160);
+
+ 
+      batX = batX + batSpeed;
+      if (batX > width + 30) {
+        batX = -30;
+      }
+      let batY = 90 + sin(frameCount * 0.05) * 20;
+
+      fill(20, 15, 30);
+   
+      let wingMove = sin(frameCount * 0.2) * 8;
+      triangle(batX, batY, batX - 25, batY - 10 + wingMove, batX - 8, batY + 6);
+      triangle(batX, batY, batX + 25, batY - 10 + wingMove, batX + 8, batY + 6);
+
+     
+      ellipse(batX, batY, 12, 16);
+      circle(batX, batY - 5, 8);
+
+     
+      fill(255, 0, 0);
+      circle(batX - 2, batY - 5, 2);
+      circle(batX + 2, batY - 5, 2);
+
+ 
+      let ghostAlpha = map(sin(frameCount * 0.03), -1, 1, 40, 210);
+      let ghostY = 210 + sin(frameCount * 0.04) * 12;
+
+      fill(235, 240, 255, ghostAlpha);
+      ellipse(120, ghostY, 40, 50);
+      circle(120, ghostY - 15, 30);
+
+    
+      fill(15, 10, 25, ghostAlpha);
+      ellipse(114, ghostY - 15, 4, 7);
+      ellipse(126, ghostY - 15, 4, 7);
+      ellipse(120, ghostY - 5, 5, 7);
+
+
+      let px = 460;
+      let py = 320;
+
+      
+      let pSize = 65 + sin(frameCount * 0.05) * 10;
+
+   
+      fill(40, 70, 20);
+      rect(px - 3, py - pSize * 0.6, 6, 12);
+
+      
+      fill(210, 80, 10);
+      ellipse(px - 14, py, pSize * 0.6, pSize);
+      ellipse(px + 14, py, pSize * 0.6, pSize);
+      fill(245, 110, 20);
+      ellipse(px, py, pSize * 0.7, pSize);
+
+     
+      let eyeGreen = map(sin(frameCount * 0.05), -1, 1, 100, 255);
+      fill(255, eyeGreen, 30);
+
+  
+      triangle(px - 14, py - 6, px - 6, py - 14, px - 4, py - 4);
+      triangle(px + 14, py - 6, px + 6, py - 14, px + 4, py - 4);
+
+     
+      triangle(px, py - 5, px - 3, py, px + 3, py);
+
+     
+      arc(px, py + 6, 26, 16, 0, PI);
+    }
+  </script>
+
+</body>
+</html>
